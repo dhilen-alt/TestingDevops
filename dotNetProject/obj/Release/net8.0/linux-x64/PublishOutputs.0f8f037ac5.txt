@@ -1,0 +1,7 @@
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\dotNetProject
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.Development.json
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.json
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\dotNetProject.dll
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\dotNetProject.deps.json
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\dotNetProject.runtimeconfig.json
+D:\React\dotNetProject\dotNetProject\obj\Release\net8.0\linux-x64\PubTmp\Out\dotNetProject.pdb
