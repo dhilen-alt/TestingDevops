@@ -32,3 +32,11 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'DevopsConnection'
+    appType: 'webApp'
+    WebAppName: 'first-app-azure'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)\WebApp.zip'
