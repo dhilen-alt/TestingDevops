@@ -53,7 +53,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      dotnet tool install --global dotnet-ef --version 8.0.XX
+      dotnet tool install --global dotnet-ef
       echo '##vso[task.prependpath]$HOME/.dotnet/tools'
 
 
@@ -66,8 +66,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      dotnet ef database update \
-        --connection "$(AZURE_SQL_CONNECTION_STRING)"
+      dotnet ef database update --connection "$(AZURE_SQL_CONNECTION_STRING)"
 
 
 # =========================
