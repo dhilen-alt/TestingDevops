@@ -10,7 +10,7 @@ variables:
 steps:
 
 # =========================
-# CI - Restore
+# Restore
 # =========================
 
 - task: DotNetCoreCLI@2
@@ -21,7 +21,7 @@ steps:
 
 
 # =========================
-# CI - Build
+# Build
 # =========================
 
 - task: DotNetCoreCLI@2
@@ -33,7 +33,7 @@ steps:
 
 
 # =========================
-# CI - Test
+# Test
 # =========================
 
 - task: DotNetCoreCLI@2
@@ -45,7 +45,7 @@ steps:
 
 
 # =========================
-# EF Core - Install Tool
+# Install EF Core
 # =========================
 
 - task: Bash@3
@@ -54,23 +54,29 @@ steps:
     targetType: 'inline'
     script: |
       dotnet tool install --global dotnet-ef
-      echo '##vso[task.prependpath]$HOME/.dotnet/tools'
+      echo "##vso[task.prependpath]$HOME/.dotnet/tools"
 
 
 # =========================
-# EF Core - Apply Migration
+# Apply EF Core Migration
 # =========================
 
 - task: Bash@3
   displayName: 'Apply EF Core Migrations'
   inputs:
     targetType: 'inline'
+    workingDirectory: '$(Build.SourcesDirectory)'
     script: |
-      dotnet ef database update --connection "$(AZURE_SQL_CONNECTION_STRING)"
+      dotnet ef database update \
+        --project "$(Build.SourcesDirectory)/dotNetProject/dotNetProject.csproj" \
+        --startup-project "$(Build.SourcesDirectory)/dotNetProject/dotNetProject.csproj" \
+        --connection "$AZURE_SQL_CONNECTION_STRING"
+  env:
+    AZURE_SQL_CONNECTION_STRING: $(AZURE_SQL_CONNECTION_STRING)
 
 
 # =========================
-# CI - Publish
+# Publish
 # =========================
 
 - task: DotNetCoreCLI@2
@@ -83,7 +89,7 @@ steps:
 
 
 # =========================
-# CD - Deploy to Azure App Service
+# Deploy
 # =========================
 
 - task: AzureRmWebAppDeployment@4
