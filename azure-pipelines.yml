@@ -67,7 +67,7 @@ steps:
     targetType: 'inline'
     script: |
       dotnet ef database update \
-        --connection "$(ConnectionStrings__DefaultConnection)"
+        --connection "$(AZURE_SQL_CONNECTION_STRING)"
 
 
 # =========================
