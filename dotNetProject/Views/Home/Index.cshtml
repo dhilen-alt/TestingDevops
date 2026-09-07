@@ -1,10 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Microsoft Secure Sign-In";
+    // Azure Easy Auth populates this automatically when the user logs in
+    bool IsLoggedIn = User.Identity?.IsAuthenticated ?? false;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="text-center" style="margin-top: 60px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    @if (!IsLoggedIn)
+    {
+        <!-- WHAT AN UNAUTHENTICATED VISITOR SEES -->
+        <h1 style="color: #242424; font-weight: 600;">Welcome to the Application</h1>
+        <p style="color: #616161; margin-bottom: 30px;">This application requires a secure Microsoft account to access.</p>
 
-<h1>Changes done.</h1>
+        <!-- Built-in Microsoft Easy Auth Route -->
+        <a href="/.auth/login/aad?post_login_redirect_url=/"
+           style="display: inline-flex; align-items: center; background-color: #0078d4; color: white; padding: 12px 28px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: background-color 0.2s;">
+            🔑 Sign in with Microsoft
+        </a>
+    }
+    else
+    {
+        <!-- WHAT A LOGGED-IN USER SEES -->
+        <h1 style="color: #107c41;">🎉 Successfully Authenticated!</h1>
+        <p>You have signed in securely via Microsoft Entra ID.</p>
+
+        <div style="background-color: #f3f2f1; border: 1px solid #edebe9; padding: 24px; display: inline-block; border-radius: 6px; text-align: left; margin-top: 25px; min-width: 320px;">
+            <h3 style="margin-top: 0; color: #323130; border-bottom: 1px solid #e1dfdd; padding-bottom: 8px;">User Profile</h3>
+            <p style="margin: 8px 0;"><strong>Name / Email:</strong> @User.Identity.Name</p>
+            <p style="margin: 8px 0;"><strong>Unique ID:</strong> @User.FindFirst(ClaimTypes.NameIdentifier)?.Value</p>
+        </div>
+
+        <div style="margin-top: 35px;">
+            <!-- Built-in Microsoft Logout Route -->
+            <a href="/.auth/logout?post_logout_redirect_uri=/"
+               style="display: inline-block; background-color: #a80000; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px;">
+                Sign Out
+            </a>
+        </div>
+    }
+</div>
