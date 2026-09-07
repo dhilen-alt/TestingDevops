@@ -14,8 +14,8 @@
 
         <!-- FIXED: Using clean relative routes completely prevents the domain stripping bug -->
         <a href="/.auth/login/aad?post_login_redirect_url=/"
-           target="_top"
-           style="display: inline-flex; align-items: center; background-color: #0078d4; color: white; padding: 12px 28px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: background-color 0.2s;">
+           onclick="window.top.location.href = this.href; return false;"
+           style="...">
             🔑 Sign in with Microsoft
         </a>
     }
