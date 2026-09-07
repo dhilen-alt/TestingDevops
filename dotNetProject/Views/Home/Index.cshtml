@@ -12,8 +12,8 @@
         <h1 style="color: #242424; font-weight: 600;">Welcome to the Application</h1>
         <p style="color: #616161; margin-bottom: 30px;">This application requires a secure Microsoft account to access.</p>
 
-        <!-- Built-in Microsoft Easy Auth Route with target="_top" to prevent iframe/cross-origin blocks -->
-        <a href="https://azurewebsites.net"
+        <!-- FIXED: Using clean relative routes completely prevents the domain stripping bug -->
+        <a href="/.auth/login/aad?post_login_redirect_url=/"
            target="_top"
            style="display: inline-flex; align-items: center; background-color: #0078d4; color: white; padding: 12px 28px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: background-color 0.2s;">
             🔑 Sign in with Microsoft
@@ -32,8 +32,8 @@
         </div>
 
         <div style="margin-top: 35px;">
-            <!-- Built-in Microsoft Logout Route -->
-            <a href="https://azurewebsites.net"
+            <!-- FIXED: Relative route for logout -->
+            <a href="/.auth/logout?post_logout_redirect_uri=/"
                target="_top"
                style="display: inline-block; background-color: #a80000; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px;">
                 Sign Out
