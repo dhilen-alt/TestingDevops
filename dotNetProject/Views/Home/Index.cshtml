@@ -1,38 +1,40 @@
 ﻿@using System.Security.Claims
 @{
-    ViewData["Title"] = "Microsoft Secure Sign-In";
-    // Azure Easy Auth populates this automatically when the user logs in
+    ViewData["Title"] = "Secure Sign-In";
     bool IsLoggedIn = User.Identity?.IsAuthenticated ?? false;
 }
-
 <div class="text-center" style="margin-top: 60px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     @if (!IsLoggedIn)
     {
         <!-- WHAT AN UNAUTHENTICATED VISITOR SEES -->
         <h1 style="color: #242424; font-weight: 600;">Welcome to the Application</h1>
-        <p style="color: #616161; margin-bottom: 30px;">This application requires a secure Microsoft account to access.</p>
+        <p style="color: #616161; margin-bottom: 30px;">Please sign in to continue.</p>
 
-        <!-- FIXED: Using clean relative routes completely prevents the domain stripping bug -->
         <a href="/.auth/login/aad?post_login_redirect_url=/"
-           onclick="window.top.location.href = this.href; return false;"
-           style="...">
+           target="_top"
+           style="display: inline-flex; align-items: center; background-color: #0078d4; color: white; padding: 12px 28px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 16px; margin: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
             🔑 Sign in with Microsoft
+        </a>
+
+        <br />
+
+        <a href="/.auth/login/google?post_login_redirect_url=/"
+           target="_top"
+           style="display: inline-flex; align-items: center; background-color: #ffffff; color: #3c4043; border: 1px solid #dadce0; padding: 12px 28px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 16px; margin: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            🔑 Sign in with Google
         </a>
     }
     else
     {
         <!-- WHAT A LOGGED-IN USER SEES -->
         <h1 style="color: #107c41;">🎉 Successfully Authenticated!</h1>
-        <p>You have signed in securely via Microsoft Entra ID.</p>
-
+        <p>You have signed in securely.</p>
         <div style="background-color: #f3f2f1; border: 1px solid #edebe9; padding: 24px; display: inline-block; border-radius: 6px; text-align: left; margin-top: 25px; min-width: 320px;">
             <h3 style="margin-top: 0; color: #323130; border-bottom: 1px solid #e1dfdd; padding-bottom: 8px;">User Profile</h3>
             <p style="margin: 8px 0;"><strong>Name / Email:</strong> @User.Identity.Name</p>
             <p style="margin: 8px 0;"><strong>Unique ID:</strong> @User.FindFirst(ClaimTypes.NameIdentifier)?.Value</p>
         </div>
-
         <div style="margin-top: 35px;">
-            <!-- FIXED: Relative route for logout -->
             <a href="/.auth/logout?post_logout_redirect_uri=/"
                target="_top"
                style="display: inline-block; background-color: #a80000; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px;">
